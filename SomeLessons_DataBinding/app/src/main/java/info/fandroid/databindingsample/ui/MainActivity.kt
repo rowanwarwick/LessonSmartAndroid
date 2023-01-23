@@ -28,10 +28,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import info.fandroid.databindingsample.R
 import info.fandroid.databindingsample.data.Popularity
 import info.fandroid.databindingsample.data.SimpleViewModel
+import info.fandroid.databindingsample.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -41,10 +44,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        val bilding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        bilding.firstName = "Vitaliy"
+        bilding.secondName = "Vshivkov"
 
         // TODO: Explicitly setting initial values is a bad pattern. We'll fix that.
-        updateName()
         updateLikes()
     }
 
@@ -55,14 +59,6 @@ class MainActivity : AppCompatActivity() {
     fun onLike(view: View) {
         viewModel.onLike()
         updateLikes()
-    }
-
-    /**
-     * So much findViewById! We'll fix that with Data Binding.
-     */
-    private fun updateName() {
-        findViewById<TextView>(R.id.plain_name).text = viewModel.name
-        findViewById<TextView>(R.id.plain_lastname).text = viewModel.lastName
     }
 
     /**
